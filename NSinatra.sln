@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSinatra", "NSinatra\NSinatra.csproj", "{96111D35-3B8F-436C-A07E-ED03811825DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "Example\Example.csproj", "{B2002728-09F0-4012-9492-A70F1A21EC56}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96111D35-3B8F-436C-A07E-ED03811825DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96111D35-3B8F-436C-A07E-ED03811825DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96111D35-3B8F-436C-A07E-ED03811825DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96111D35-3B8F-436C-A07E-ED03811825DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2002728-09F0-4012-9492-A70F1A21EC56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2002728-09F0-4012-9492-A70F1A21EC56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2002728-09F0-4012-9492-A70F1A21EC56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2002728-09F0-4012-9492-A70F1A21EC56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
