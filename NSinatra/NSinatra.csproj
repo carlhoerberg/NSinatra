@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionResult.cs" />
+    <Compile Include="ActionResults\BinaryResult.cs" />
     <Compile Include="ActionResults\NHamlResult.cs" />
     <Compile Include="ActionResults\NotFoundResult.cs" />
     <Compile Include="NSinatraBase.cs" />

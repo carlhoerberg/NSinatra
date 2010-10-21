@@ -8,14 +8,8 @@ namespace Example
         {
             Get("/", param => Content("<h1>Welcome to NSinatra!</h1>"));
             
-            Get("/test", param => NHaml("Index"));
-
-            Get("/test/:id", param =>
-            {
-                var data = string.Format("id = {0}", param.id);
-                return Content(data);
-            });
-
+            Get("/test/:id", param => NHaml("Index", param.id));
+            
             Get("/:name", param => Content("The parameter name is " + param.name));
 
         }

@@ -28,6 +28,11 @@ namespace NSinatra
             return new NHamlResult(templateName);
         }
 
+        public NHamlResult NHaml(string templateName, object viewData)
+        {
+            return new NHamlResult(templateName, viewData);
+        }
+
         public StringResult Content(string content)
         {
             return new StringResult(content);
