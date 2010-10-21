@@ -11,7 +11,6 @@ namespace Example
             Get("/test/:id", param => NHaml("Index", param.id));
             
             Get("/:name", param => Content("The parameter name is " + param.name));
-
         }
     }
 }
