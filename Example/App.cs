@@ -1,5 +1,4 @@
 ﻿using NSinatra;
-using NSinatra.ActionResults;
 
 namespace Example
 {
@@ -7,15 +6,23 @@ namespace Example
     {
         public App()
         {
-            Get("/", () =>
-                         {
-                             return new StringResult("Hello");
-                         });
+            Get("/", delegate 
+            {
+                var str = "Hello";
+                return Content(str);
+            });
 
-            Get("/test", () =>
-                             {
-                                 return NHaml("Index");
-                             });            
+            Get("/test", param =>
+            {
+                return NHaml("Index");
+            });
+
+            Get("/test/:id", param =>
+            {
+                var id = param.id;
+                var data = string.Format("id = {0}", id);
+                return Content(data);
+            });
         }
     }
 }

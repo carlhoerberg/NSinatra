@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Web;
 using NSinatra.ActionResults;
+using System.Text.RegularExpressions;
 
 namespace NSinatra
 {
     public class NSinatraBase : IHttpHandler
     {
-        private readonly IDictionary<string, Func<ActionResult>> getRoutes = new Dictionary<string, Func<ActionResult>>();
-        private readonly IDictionary<string, Func<ActionResult>> postRoutes = new Dictionary<string, Func<ActionResult>>();
-        
-        public void Get(string route, Func<ActionResult> action)
+        private readonly IDictionary<string, Func<dynamic, ActionResult>> getRoutes = new Dictionary<string, Func<dynamic, ActionResult>>();
+        private readonly IDictionary<string, Func<dynamic, ActionResult>> postRoutes = new Dictionary<string, Func<dynamic, ActionResult>>();
+
+        public void Get(string route, Func<dynamic, ActionResult> action)
         {
             getRoutes.Add(route, action);
         }
 
-        public void Post(string route, Func<ActionResult> action)
+        public void Post(string route, Func<dynamic, ActionResult> action)
         {
             postRoutes.Add(route, action);
         }
@@ -25,29 +27,42 @@ namespace NSinatra
             return new NHamlResult(templateName);
         }
 
+        public StringResult Content(string content)
+        {
+            return new StringResult(content);
+        }
+
         public void ProcessRequest(HttpContext context)
         {
-            var path = context.Request.Url.AbsolutePath;
-            var routes = GetRoutes(context);
+            var url = context.Request.Url.AbsolutePath;
+            var routes = GetRoutes(context.Request.HttpMethod);
 
-            ActionResult result;
-            if (routes.ContainsKey(path))
+            ActionResult result = null;
+            foreach (var path in routes.Keys)
             {
+                var pattern = Regex.Replace(path, "/:([^/]*)", "/([^/]*)");
+                if (!Regex.IsMatch(url, pattern)) continue;
+
+                var urlParts = url.Split('/');
+                var patternParts = path.Split('/');
+                IDictionary<string, object> param = new ExpandoObject();
+                for (var i = 0; i < patternParts.Length; i++)
+                {
+                    if (!patternParts[i].StartsWith(":")) continue;
+                    param.Add(patternParts[i].Substring(1), urlParts[i]);
+                }
                 var action = routes[path];
-                result = action.Invoke();
+                result = action.Invoke(param);
             }
-            else
-            {
-                result = new NotFoundResult();
-            }
-            var wrapper = new HttpContextWrapper(context);            
+            result = result ?? new NotFoundResult();
+            var wrapper = new HttpContextWrapper(context);
             result.WriteToResponse(wrapper);
         }
 
-        private IDictionary<string, Func<ActionResult>> GetRoutes(HttpContext context)
+        private IDictionary<string, Func<dynamic, ActionResult>> GetRoutes(string verb)
         {
-            IDictionary<string, Func<ActionResult>> routes;
-            switch (context.Request.HttpMethod)
+            IDictionary<string, Func<dynamic, ActionResult>> routes;
+            switch (verb)
             {
                 case "GET":
                     routes = getRoutes;
