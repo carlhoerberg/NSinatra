@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Dynamic;
 using System.Web;
 using NSinatra.ActionResults;
@@ -34,29 +35,48 @@ namespace NSinatra
 
         public void ProcessRequest(HttpContext context)
         {
-            var url = context.Request.Url.AbsolutePath;
-            var routes = GetRoutes(context.Request.HttpMethod);
-
-            ActionResult result = null;
-            foreach (var path in routes.Keys)
-            {
-                var pattern = Regex.Replace(path, "/:([^/]*)", "/([^/]*)");
-                if (!Regex.IsMatch(url, pattern)) continue;
-
-                var urlParts = url.Split('/');
-                var patternParts = path.Split('/');
-                IDictionary<string, object> param = new ExpandoObject();
-                for (var i = 0; i < patternParts.Length; i++)
-                {
-                    if (!patternParts[i].StartsWith(":")) continue;
-                    param.Add(patternParts[i].Substring(1), urlParts[i]);
-                }
-                var action = routes[path];
-                result = action.Invoke(param);
-            }
-            result = result ?? new NotFoundResult();
+            var path = context.Request.Url.AbsolutePath;
+            var formParams = context.Request.Form;
+            var queryParams = context.Request.QueryString;
+            var result = GetActionResult(context.Request.HttpMethod, path, formParams, queryParams);
             var wrapper = new HttpContextWrapper(context);
             result.WriteToResponse(wrapper);
+        }
+
+        public bool IsReusable
+        {
+            get { return false; }
+        }
+
+        private ActionResult GetActionResult(string verb, string url, NameValueCollection formParams, NameValueCollection queryParams)
+        {
+            var routes = GetRoutes(verb);
+            foreach (var route in routes)
+            {
+                var pattern = Regex.Replace(route.Key, "/:([^/]*)", "/([^/]*)");
+                if (!Regex.IsMatch(url, "^" + pattern + "$")) continue;
+
+                IDictionary<string, object> parameters = new ExpandoObject();
+
+                foreach (string formKey in formParams)
+                    parameters.Add(formKey, formParams[formKey]);
+                foreach (string queryKey in queryParams)
+                    parameters.Add(queryKey, queryParams[queryKey]);
+
+                var urlParts = url.Split('/');
+                var parts = route.Key.Split('/');
+                for (var i = 0; i < parts.Length; i++)
+                {
+                    if (!parts[i].StartsWith(":")) continue;
+                    var key = parts[i].Substring(1);
+                    var value = urlParts[i];
+                    parameters.Add(key, value);
+                }
+                var action = route.Value;
+                return action.Invoke(parameters);
+            }
+
+            return new NotFoundResult();
         }
 
         private IDictionary<string, Func<dynamic, ActionResult>> GetRoutes(string verb)
@@ -71,14 +91,9 @@ namespace NSinatra
                     routes = postRoutes;
                     break;
                 default:
-                    throw new NotSupportedException("HttpMethod {0} is not supported");
+                    throw new NotSupportedException(string.Format("HttpMethod {0} is not supported", verb));
             }
             return routes;
-        }
-
-        public bool IsReusable
-        {
-            get { return true; }
         }
     }
 }

@@ -39,6 +39,7 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Styles.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -57,9 +58,7 @@
       <Name>NSinatra</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Public\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Views\Index.haml" />
   </ItemGroup>
