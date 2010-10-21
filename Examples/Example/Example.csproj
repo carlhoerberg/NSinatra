@@ -53,7 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NSinatra\NSinatra.csproj">
+    <ProjectReference Include="..\..\NSinatra\NSinatra.csproj">
       <Project>{96111D35-3B8F-436C-A07E-ED03811825DE}</Project>
       <Name>NSinatra</Name>
     </ProjectReference>

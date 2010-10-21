@@ -32,7 +32,7 @@ namespace NSinatra
 
         public bool IsReusable
         {
-            get { return false; }
+            get { return true; }
         }
 
         private readonly IList<Route> routes = new List<Route>();
