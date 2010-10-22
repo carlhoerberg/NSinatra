@@ -72,5 +72,10 @@ namespace NSinatra
         {
             return new StringResult(content);
         }
+
+        public RedirectResult Redirect(string url, bool permanent = false)
+        {
+            return new RedirectResult(url, permanent);
+        }
     }
 }

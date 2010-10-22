@@ -35,5 +35,5 @@ namespace NSinatra.ActionResults
         }
     }
 
-    
+
 }

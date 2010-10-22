@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiApps", "Examples\Multi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutofacIntegration", "Examples\AutofacIntegration\AutofacIntegration.csproj", "{1CB06A95-0EB1-462C-9AE3-469175496E84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubsonicExample", "Examples\SubsonicExample\SubsonicExample.csproj", "{DC1EDD17-F54B-4C0F-8655-537D93B14AB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1CB06A95-0EB1-462C-9AE3-469175496E84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CB06A95-0EB1-462C-9AE3-469175496E84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CB06A95-0EB1-462C-9AE3-469175496E84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC1EDD17-F54B-4C0F-8655-537D93B14AB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC1EDD17-F54B-4C0F-8655-537D93B14AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC1EDD17-F54B-4C0F-8655-537D93B14AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC1EDD17-F54B-4C0F-8655-537D93B14AB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,5 +47,6 @@ Global
 		{B2002728-09F0-4012-9492-A70F1A21EC56} = {009BA4E7-829B-4205-B8D8-41CA03232805}
 		{0CB86598-1657-4350-9BD8-5C11B44FD3D1} = {009BA4E7-829B-4205-B8D8-41CA03232805}
 		{1CB06A95-0EB1-462C-9AE3-469175496E84} = {009BA4E7-829B-4205-B8D8-41CA03232805}
+		{DC1EDD17-F54B-4C0F-8655-537D93B14AB6} = {009BA4E7-829B-4205-B8D8-41CA03232805}
 	EndGlobalSection
 EndGlobal
