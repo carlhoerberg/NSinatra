@@ -1,0 +1,21 @@
+﻿!!!
+%html
+	%head
+		%title Address book
+	%body
+	%h1 Welcome to Address book    
+	%p 
+		%a{href="/Create"} Add contact
+	%table
+		%thead
+			%tr
+				%th 
+				%th Namn
+				%th Email
+		%tbody
+			-foreach(var row in ViewData)
+				%tr
+					%td
+						%a{ href="/#{row.Id}" } Details						
+					%td= row.Name
+					%td= row.Email

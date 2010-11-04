@@ -1,0 +1,15 @@
+﻿!!!
+%html
+	%head
+		%title Address book
+	%body
+	%h1 Edit contact
+	%form{method="POST" action="/#{ViewData.Id}"}
+		%p
+			%label Name
+			%input{type= "text" name="Name" value=ViewData.Name}
+		%p
+			%label Email
+			%input{type="text" name="Email" value=ViewData.Email}
+		%p
+			%input{type="submit" value="Save"}	

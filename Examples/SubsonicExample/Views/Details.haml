@@ -1,0 +1,13 @@
+﻿!!!
+%html
+	%head
+		%title Address book
+	%body
+	%h1 Contact
+	%a{href="/Edit/#{ViewData.Id}"} Edit
+	%p
+		Name: 
+		= ViewData.Name
+	%p
+		Email: 
+		= ViewData.Email
